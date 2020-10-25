@@ -35,7 +35,7 @@ h1 {
 }
 
 .cards__item__link {
-  display: flex;
+  /* display: flex; */
   flex-flow: column;
   width: 100%;
   box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
@@ -53,20 +53,20 @@ h1 {
   overflow: hidden;
 }
 
-.cost {
-  background: #fff;
-  position: relative;
-  border-radius: 5px;
-  padding: 20px;
-  margin: 10px;
+.cost { 
   width: fit-content;
-  color: #333;
-  flex-basis: width;
-  background-color: #fff;
+  background: transparent;
 }
-
-.cost-display {
-  align-items: baseline;
+.cost > p {
+  margin-top: 8px;
+  color: #fff;
+  font-size: 32px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.cost-button {
+  justify-content: center;
+  margin-top: 10px;
   display: flex;
 }
 

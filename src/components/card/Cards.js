@@ -1,13 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Cards.css";
 import CardItem from "./CardItem";
 import { Button } from "../button/Button";
 import "../button/Button.css";
 
 function Cards() {
+  const [printCost, setPrintCost] = useState([]);
+  const [paintingCost, setPaintingCost] = useState([]);
+
+  const fetchAllCost = async () => {
+    console.log("fetching data");
+    const response = await fetch(
+      `http://localhost:5000/api/photos/costForAllPrints`
+    )
+      .then((response) => response.json())
+      .then((responseData) => {
+        setPrintCost(responseData);
+      })
+      .catch((error) => console.warn(error));
+
+    fetch(`http://localhost:5000/api/photos/costForAllPaintings`)
+      .then((response) => response.json())
+      .then((responseData) => {
+        setPaintingCost(responseData);
+      })
+      .catch((error) => console.warn(error));
+  };
+
   return (
     <div className="cards">
       <h1> Available Photographs </h1>{" "}
+      <div className="cost-button">
+        <button
+          className={`btn btn--outline btn--medium`}
+          onClick={fetchAllCost}
+        >
+          DISPLAY COST
+        </button>
+      </div>
       <div className="cards__container">
         <div className="cards__wrapper">
           <ul className="cards__items">
@@ -17,27 +47,17 @@ function Cards() {
               label="Vietnam"
             />
             <div>
-              <ul className="cost-display">
-                <div>
-                  <button className={`btn btn--outline btn--medium`}>
-                    GET PRINT
-                  </button>
-                </div>
+              {printCost[0] && 
                 <div className="cost">
-                  <p>$200</p>
+                  <p>${printCost[0]} / print</p>
                 </div>
-              </ul>
-              <ul className="cost-display">
-                <div>
-                  <button className={`btn btn--outline btn--medium`}>
-                    GET PAINTING
-                  </button>
-                </div>
+              }
+             {paintingCost[0] && 
                 <div className="cost">
-                  <p>$200</p>
+                  <p>${paintingCost[0]} / painting</p>
                 </div>
-              </ul>
-            </div>
+              }
+            </div>            
           </ul>{" "}
           <ul className="cards__items">
             <CardItem
@@ -46,26 +66,16 @@ function Cards() {
               label="Sri Lanka"
             />
             <div>
-              <ul className="cost-display">
-                <div>
-                  <button className={`btn btn--outline btn--medium`}>
-                    GET PRINT
-                  </button>
-                </div>
+            {printCost[1] && 
+              <div className="cost">
+                <p>${printCost[1]} / print</p>
+              </div>
+            }
+             {paintingCost[1] && 
                 <div className="cost">
-                  <p>$200</p>
+                  <p>${paintingCost[1]} / painting</p>
                 </div>
-              </ul>
-              <ul className="cost-display">
-                <div>
-                  <button className={`btn btn--outline btn--medium`}>
-                    GET PAINTING
-                  </button>
-                </div>
-                <div className="cost">
-                  <p>$200</p>
-                </div>
-              </ul>
+              }
             </div>
           </ul>{" "}
           <ul className="cards__items">
@@ -75,26 +85,16 @@ function Cards() {
               label="U.S.A"
             />
             <div>
-              <ul className="cost-display">
-                <div>
-                  <button className={`btn btn--outline btn--medium`}>
-                    GET PRINT
-                  </button>
-                </div>
+              {printCost[2] && 
                 <div className="cost">
-                  <p>$200</p>
+                  <p>${printCost[2]} / print</p>
                 </div>
-              </ul>
-              <ul className="cost-display">
-                <div>
-                  <button className={`btn btn--outline btn--medium`}>
-                    GET PAINTING
-                  </button>
-                </div>
+              }
+              {paintingCost[2] && 
                 <div className="cost">
-                  <p>$200</p>
+                  <p>${paintingCost[2]} / painting</p>
                 </div>
-              </ul>
+              }
             </div>
           </ul>{" "}
         </div>{" "}
